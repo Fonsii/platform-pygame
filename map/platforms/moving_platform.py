@@ -1,6 +1,6 @@
 import pygame
 
-class MovingPlatformUpDefault:
+class MovingPlatformUpDefault(pygame.sprite.Sprite):
     def __init__(self, position_x, position_y, max_position_y, speed):
         self.sprite_default = pygame.image.load('resources/platforms/platform_moving_up.png').convert_alpha()
         self.sprite_reset = pygame.image.load('resources/platforms/platform_moving_down.png').convert_alpha()
