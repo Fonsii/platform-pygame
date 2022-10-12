@@ -14,7 +14,7 @@ class MovingPlatformUpDefault(pygame.sprite.Sprite):
         self.position = self.rect.move([position_x, position_y])
 
     
-    def drawn(self, screen):
+    def draw(self, screen):
         screen.blit(self.surface, self.position)
 
     
@@ -38,6 +38,5 @@ class MovingPlatformUpDefault(pygame.sprite.Sprite):
         if self.position.y - self.speed > self.movement_restrictions['movement_reset']:
             self.movement_state = 'DEFAULT'
             self.surface = self.sprite_default
-            self.default_movement()
         else:
             self.position.y -= self.speed

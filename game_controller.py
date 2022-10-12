@@ -29,8 +29,8 @@ class GameController:
         while True:
             #self.platform.drawn(self.screen)
             self.world.render(self.screen)
-            self.moving_platform.move()
-            self.moving_platform.drawn(self.screen)
+            #self.moving_platform.move()
+            #self.moving_platform.drawn(self.screen)
             pygame.display.flip()
             self.screen.fill((87,138,52))
             self.clock.tick(20)
