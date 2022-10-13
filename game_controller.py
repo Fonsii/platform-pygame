@@ -2,7 +2,6 @@ from sys import exit
 import pygame
 import time
 
-from map.platforms import Platform, MovingPlatformUpDefault
 from map.worlds import World1
 class GameController:
     def __init__(self, width, height):
@@ -21,17 +20,24 @@ class GameController:
 
         self.world = World1()
 
-        #self.platform = Platform(0,0)
-        self.moving_platform = MovingPlatformUpDefault(100,100, 5 , -5)
         self.run()
 
     def run(self):
         while True:
-            #self.platform.drawn(self.screen)
+            self.events()
             self.world.render(self.screen)
-            #self.moving_platform.move()
-            #self.moving_platform.drawn(self.screen)
             pygame.display.flip()
             self.screen.fill((87,138,52))
             self.clock.tick(20)
             #time.sleep(0.5)
+
+    
+    def events(self):
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == 27:
+                        pygame.quit()
+                        exit()
