@@ -46,16 +46,15 @@ class Player(pygame.sprite.Sprite):
                 self.rect.y = 0
 
 
-    def move(self, platforms):
+    def move(self, platforms, moving_platforms):
         self.get_input()
-        if self.get_collision_platforms(platforms):
-            print("no aplly")
-        else:
+        if not self.get_collision_platforms(platforms) and not self.get_collision_moving_platforms(moving_platforms):
             self.apply_gravity()
-
+            
 
     def get_collision_platforms(self, platforms):
         hits = pygame.sprite.spritecollide(self, platforms, False)
+
         if hits:
             if hits[0].rect.top == self.rect.bottom - 2:
                 return True
@@ -66,4 +65,23 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x = hits[0].rect.x - self.rect.width
             else: #Botton collider
                 self.rect.y = hits[0].rect.y - self.rect.height
+
+        return False
+
+    
+    def get_collision_moving_platforms(self, moving_platforms):
+        hits = pygame.sprite.spritecollide(self, moving_platforms, False)
+
+        if hits:
+            if hits[0].rect.top == self.rect.bottom - 2:
+                hits[0].set_allow_movement()
+                return True
+            elif hits[0].rect.bottomleft > self.rect.topright or hits[0].rect.topleft < self.rect.bottomright: #Side collider
+                if hits[0].rect.x < self.rect.x:
+                    self.rect.x = hits[0].rect.x + hits[0].rect.width
+                else:
+                    self.rect.x = hits[0].rect.x - self.rect.width
+            else: #Botton collider
+                self.rect.y = hits[0].rect.y - self.rect.height
+
         return False
