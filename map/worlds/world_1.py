@@ -28,7 +28,7 @@ class World1:
 
 
     def render(self, screen):
-        self.player.move()
+        self.player.move(self.platforms)
         self.player.draw(screen)
 
         self.moving_platform.move()
