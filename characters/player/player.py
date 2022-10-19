@@ -73,18 +73,20 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, moving_platforms, False)
 
         if hits:
-            if hits[0].rect.top == self.rect.bottom - 2:
+            if hits[0].rect.top == self.rect.bottom - 2 or hits[0].rect.top == self.rect.bottom - 1:
                 if not hits[0].allow_movement:
                     hits[0].set_allow_movement()
 
                 if hits[0].movement_state == 'DEFAULT':
-                    print("up")
-                    self.rect.y = hits[0].rect.y - self.rect.height
+                    self.rect.y += hits[0].speed
                 else:
-                    self.rect.y = hits[0].rect.y + hits[0].rect.height
+                    self.rect.y -= hits[0].speed
 
                 return True
             elif hits[0].rect.bottomleft > self.rect.topright or hits[0].rect.topleft < self.rect.bottomright: #Side collider
+                print(self.rect.bottom) #Debug
+                print(hits[0].rect.top)
+
                 if hits[0].rect.x < self.rect.x:
                     self.rect.x = hits[0].rect.x + hits[0].rect.width
                 else:

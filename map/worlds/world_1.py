@@ -5,7 +5,7 @@ from characters.mobs import Crab
 
 class World1:
     def __init__(self):
-        self.player = Player(0,0, 5)
+        self.player = Player(0,0, 6)
         self.platforms = pygame.sprite.Group()
         self.moving_platforms = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
