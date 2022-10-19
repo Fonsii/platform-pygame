@@ -74,7 +74,15 @@ class Player(pygame.sprite.Sprite):
 
         if hits:
             if hits[0].rect.top == self.rect.bottom - 2:
-                hits[0].set_allow_movement()
+                if not hits[0].allow_movement:
+                    hits[0].set_allow_movement()
+
+                if hits[0].movement_state == 'DEFAULT':
+                    print("up")
+                    self.rect.y = hits[0].rect.y - self.rect.height
+                else:
+                    self.rect.y = hits[0].rect.y + hits[0].rect.height
+
                 return True
             elif hits[0].rect.bottomleft > self.rect.topright or hits[0].rect.topleft < self.rect.bottomright: #Side collider
                 if hits[0].rect.x < self.rect.x:
