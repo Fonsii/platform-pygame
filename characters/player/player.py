@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = speed
         self.gravity = 2
         self.jump_height = 10
-
+        self.lose = False
         self.sprite = pygame.image.load('resources/player/test_player.png').convert_alpha()
         self.image = self.sprite
         self.rect = self.image.get_rect()
@@ -46,11 +46,16 @@ class Player(pygame.sprite.Sprite):
                 self.rect.y = 0
 
 
-    def move(self, platforms, moving_platforms):
-        self.get_input()
-        if not self.get_collision_platforms(platforms) and not self.get_collision_moving_platforms(moving_platforms):
-            self.apply_gravity()
+    def move(self, platforms, moving_platforms, enemies):
+        if self.lose or self.get_collision_enemies(enemies):
+            self.lose = True
+        else:
+            self.get_input()
+
+            if not self.get_collision_platforms(platforms) and not self.get_collision_moving_platforms(moving_platforms):
+                self.apply_gravity()
             
+        return self.lose
 
     def get_collision_platforms(self, platforms):
         hits = pygame.sprite.spritecollide(self, platforms, False)
@@ -95,3 +100,12 @@ class Player(pygame.sprite.Sprite):
                 self.rect.y = hits[0].rect.y - self.rect.height
 
         return False
+
+
+    def get_collision_enemies(self, enemies):
+        hits = pygame.sprite.spritecollide(self, enemies, False)
+        
+        if hits:
+            return True
+        else:
+            return False

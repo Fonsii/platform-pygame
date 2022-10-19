@@ -41,7 +41,9 @@ class World1:
 
 
     def render(self, screen):
-        self.player.move(self.platforms, self.moving_platforms)
+        if self.player.move(self.platforms, self.moving_platforms, self.enemies):
+            print("losing")
+
         self.player.draw(screen)
 
         for moving_platform in self.moving_platforms:
