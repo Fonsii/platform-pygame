@@ -13,6 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.gravity = 2
         self.jump_height = 10
         self.lose = False
+        self.wining = False
         self.sprite = pygame.image.load('resources/player/test_player.png').convert_alpha()
         self.image = self.sprite
         self.rect = self.image.get_rect()
@@ -52,8 +53,10 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, platforms, moving_platforms, enemies, flag):
         if self.lose or self.get_collision_enemies(enemies):
+            self.lose = True
             return StateGame.GAME_OVER
-        elif self.get_collision_flag(flag):
+        elif self.wining or self.get_collision_flag(flag):
+            self.wining = True
             return StateGame.WIN
         else:
             self.get_input()

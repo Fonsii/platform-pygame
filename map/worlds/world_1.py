@@ -6,7 +6,7 @@ from map.utils import Flag
 
 class World1:
     def __init__(self):
-        self.player = Player(0,0, 6)
+        self.player = Player(0,324, 6)
         self.platforms = pygame.sprite.Group()
         self.moving_platforms = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
@@ -46,11 +46,6 @@ class World1:
 
     def render(self, screen):
         state = self.player.move(self.platforms, self.moving_platforms, self.enemies, self.flag_end)
-        if state == StateGame.GAME_OVER:
-            print("losing")
-        elif state == StateGame.WIN:
-            print("winning")
-
 
         self.player.draw(screen)
 
@@ -64,3 +59,5 @@ class World1:
         self.moving_platforms.draw(screen)
         self.platforms.draw(screen)
         self.enemies.draw(screen)
+
+        return state
