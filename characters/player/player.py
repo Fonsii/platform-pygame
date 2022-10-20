@@ -11,9 +11,11 @@ class Player(pygame.sprite.Sprite):
 
         self.speed = speed
         self.gravity = 2
-        self.jump_height = 10
+        self.jump_height = 76
         self.lose = False
         self.wining = False
+        self.first_jump = True
+
         self.sprite = pygame.image.load('resources/player/test_player.png').convert_alpha()
         self.image = self.sprite
         self.rect = self.image.get_rect()
@@ -44,7 +46,8 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.rect.x = 0
 
-        if keys[pygame.K_SPACE]:
+        if self.first_jump and keys[pygame.K_SPACE]:
+            self.first_jump = False
             if self.rect.y - self.jump_height > self.image.get_height():
                 self.rect.y -= self.jump_height
             else:
@@ -63,6 +66,8 @@ class Player(pygame.sprite.Sprite):
 
             if not self.get_collision_platforms(platforms) and not self.get_collision_moving_platforms(moving_platforms):
                 self.apply_gravity()
+            else:
+                self.first_jump = True
             
         return StateGame.PLAYING
 
