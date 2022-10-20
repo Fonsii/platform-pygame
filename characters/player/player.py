@@ -1,6 +1,10 @@
 import pygame
 import time
-
+from enum import Enum
+class StateGame(Enum):
+    PLAYING = 1
+    WIN = 2
+    GAME_OVER = 3
 class Player(pygame.sprite.Sprite):
     def __init__(self, start_position_x, start_position_y, speed):
         pygame.sprite.Sprite.__init__(self)
@@ -46,16 +50,18 @@ class Player(pygame.sprite.Sprite):
                 self.rect.y = 0
 
 
-    def move(self, platforms, moving_platforms, enemies):
+    def move(self, platforms, moving_platforms, enemies, flag):
         if self.lose or self.get_collision_enemies(enemies):
-            self.lose = True
+            return StateGame.GAME_OVER
+        elif self.get_collision_flag(flag):
+            return StateGame.WIN
         else:
             self.get_input()
 
             if not self.get_collision_platforms(platforms) and not self.get_collision_moving_platforms(moving_platforms):
                 self.apply_gravity()
             
-        return self.lose
+        return StateGame.PLAYING
 
     def get_collision_platforms(self, platforms):
         hits = pygame.sprite.spritecollide(self, platforms, False)
@@ -89,9 +95,6 @@ class Player(pygame.sprite.Sprite):
 
                 return True
             elif hits[0].rect.bottomleft > self.rect.topright or hits[0].rect.topleft < self.rect.bottomright: #Side collider
-                print(self.rect.bottom) #Debug
-                print(hits[0].rect.top)
-
                 if hits[0].rect.x < self.rect.x:
                     self.rect.x = hits[0].rect.x + hits[0].rect.width
                 else:
@@ -106,6 +109,15 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, enemies, False)
         
         if hits:
+            return True
+        else:
+            return False
+
+    
+    def get_collision_flag(self, flag):
+        hit = self.rect.colliderect(flag)
+
+        if hit:
             return True
         else:
             return False

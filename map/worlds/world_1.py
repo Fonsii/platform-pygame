@@ -1,7 +1,8 @@
 import pygame
 from map.platforms import Platform, MovingPlatformUpDefault, MainPlatform, FloatingIsland
-from characters.player import Player
+from characters.player import Player, StateGame
 from characters.mobs import Crab
+from map.utils import Flag
 
 class World1:
     def __init__(self):
@@ -9,6 +10,7 @@ class World1:
         self.platforms = pygame.sprite.Group()
         self.moving_platforms = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
+        
 
         moving_platform = MovingPlatformUpDefault(225,280, 200 , -5)
         moving_platform2 = MovingPlatformUpDefault(50,170, 30 , -5)
@@ -24,6 +26,8 @@ class World1:
 
         crab1 = Crab(floating_island, 2)
         crab2 = Crab(platform, 2)
+
+        self.flag_end = Flag(floating_island2)
 
         self.platforms.add(platform1)
         self.platforms.add(platform2)
@@ -41,8 +45,12 @@ class World1:
 
 
     def render(self, screen):
-        if self.player.move(self.platforms, self.moving_platforms, self.enemies):
+        state = self.player.move(self.platforms, self.moving_platforms, self.enemies, self.flag_end)
+        if state == StateGame.GAME_OVER:
             print("losing")
+        elif state == StateGame.WIN:
+            print("winning")
+
 
         self.player.draw(screen)
 
@@ -52,6 +60,7 @@ class World1:
         for enemy in self.enemies:
             enemy.move()
 
+        self.flag_end.draw(screen)
         self.moving_platforms.draw(screen)
         self.platforms.draw(screen)
         self.enemies.draw(screen)
