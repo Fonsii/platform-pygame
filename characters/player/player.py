@@ -38,13 +38,14 @@ class Player(pygame.sprite.Sprite):
                 self.rect.x += self.speed
             else:
                 self.rect.x = 400 - self.image.get_width() 
-            self.rect.x += self.speed
+            self.image = self.sprite
 
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.rect.x - self.speed > 0:
                 self.rect.x -= self.speed
             else:
                 self.rect.x = 0
+            self.image = pygame.transform.flip(self.sprite, True, False)
 
         if self.first_jump and keys[pygame.K_SPACE]:
             self.first_jump = False
