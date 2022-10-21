@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, platforms, False)
 
         if hits:
-            if hits[0].rect.top == self.rect.bottom - 2:
+            if hits[0].rect.top == self.rect.bottom - 2 or hits[0].rect.top == self.rect.bottom - 1:
                 return True
             elif hits[0].rect.bottomleft > self.rect.topright or hits[0].rect.topleft < self.rect.bottomright: #Side collider
                 if hits[0].rect.x < self.rect.x:
