@@ -8,7 +8,7 @@
 Simple plataformer style game build in Pygame
 
 <p align="center" width="100%">
-    <img width="33%" src="https://github.com/Fonsii/snake-pygame/blob/main/resources/readme_utils/plataformer_gameplay.png"> 
+    <img width="33%" src="https://github.com/Fonsii/platform-pygame/blob/main/resources/readme_utils/plataformer_gameplay.png"> 
 </p>
 
 Clone the repository
