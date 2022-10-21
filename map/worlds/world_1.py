@@ -21,8 +21,6 @@ class World1:
         floating_island2 = FloatingIsland(95,30)
 
         platform1 = Platform(335,300)
-        #platform2 = Platform(280,289)
-        #platform3 = Platform(95,180)
 
         crab1 = Crab(floating_island, 1)
         crab2 = Crab(platform, 2)
@@ -30,8 +28,6 @@ class World1:
         self.flag_end = Flag(floating_island2)
 
         self.platforms.add(platform1)
-        #self.platforms.add(platform2)
-        #self.platforms.add(platform3)
         self.platforms.add(platform)
         self.platforms.add(floating_island)
         self.platforms.add(floating_island2)
