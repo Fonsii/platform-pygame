@@ -57,10 +57,8 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, platforms, moving_platforms, enemies, flag):
         if self.lose or self.get_collision_enemies(enemies):
-            self.lose = True
             return StateGame.GAME_OVER
         elif self.wining or self.get_collision_flag(flag):
-            self.wining = True
             return StateGame.WIN
         else:
             self.get_input()
@@ -118,6 +116,7 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, enemies, False)
         
         if hits:
+            self.lose = True
             return True
         else:
             return False
@@ -127,6 +126,7 @@ class Player(pygame.sprite.Sprite):
         hit = self.rect.colliderect(flag)
 
         if hit:
+            self.wining = True
             return True
         else:
             return False

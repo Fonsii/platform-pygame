@@ -27,6 +27,7 @@ class GameController:
         self.world = World1()
         self.run()
 
+
     def run(self):
         while True:
             game_state = self.world.render(self.screen)
